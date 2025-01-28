@@ -1,20 +1,22 @@
-const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
 const options = {
-    definition: {
-        openapi: "3.0.0",
-        info: {
-            title: "task Management SaaS Backend",
-            version: "1.0.0",
-            description: "API documentation for the Task Management SaaS Backend",
-        },
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Task Management SaaS API",
+      version: "1.0.0",
+      description: "API documentation for Task Management SaaS Backend",
     },
-    apis: ["./server.js"], // Path to your API documentation in JSDoc comments
+  },
+  apis: ["./routes/*.js"], // Points to your routes folder for JSDoc comments
 };
 
-const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJsdoc(options);
 
-module.exports = app => {
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+const setupSwaggerDocs = (app) => {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
+
+module.exports = setupSwaggerDocs;
